@@ -1,67 +1,208 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+I. Project Setup Guide
+Prerequisites
+	•	Docker and Docker Compose installed on your machine.
+	•	Git for cloning the repository.
+  1.	Clone the Project:
+   git clone https://github.com/Danny2725/tender_test_dev_laravel
+  2.	Start the Docker Containers:
+	•	docker-compose up -d
+	•	You can access the application at http://localhost (or another port if configured differently in docker-compose.yml).
+  3.    Run Laravel Migrations:
+   	-	Once the containers have started, run the Laravel container migration command to create the tables in the database:
+    - docker exec -it <containerId> bash
+    - php artisan migrate
+  4.	Stopping the Containers:
+	•	When you’re done, stop the containers with:
+    docker-compose down
+ II. Curl
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+  ## 1. User Authentication
 
-## About Laravel
+### Register
+- **URL:** `/register`
+- **Method:** `POST`
+- **Function:** Registers a new user account.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Login
+- **URL:** `/login`
+- **Method:** `POST`
+- **Function:** Logs in the user to the system.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Forgot Password
+- **URL:** `/forgot-password`
+- **Method:** `POST`
+- **Function:** Sends an email for password reset.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Reset Password
+- **URL:** `/reset-password/{token}`
+- **Method:** `POST`
+- **Function:** Resets the password using a token.
 
-## Learning Laravel
+### Email Verification
+- **URL:** `/verify-email`
+- **Method:** `GET`
+- **Function:** Verifies the user’s email address.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Resend Verification Email
+- **URL:** `/email/verification-notification`
+- **Method:** `POST`
+- **Function:** Resends the email verification notification.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Confirm Password
+- **URL:** `/confirm-password`
+- **Method:** `POST`
+- **Function:** Confirms the user’s password for sensitive actions.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Update Password
+- **URL:** `/password`
+- **Method:** `PUT`
+- **Function:** Updates the user’s password.
 
-## Laravel Sponsors
+### Logout
+- **URL:** `/logout`
+- **Method:** `POST`
+- **Function:** Logs the user out of the system.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 2. User Profile
 
-### Premium Partners
+### View and Update Profile
+- **URL:** `/profile`
+- **Method:** `GET`, `PATCH`
+- **Function:** Views and updates the user’s profile information.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Delete Account
+- **URL:** `/profile`
+- **Method:** `DELETE`
+- **Function:** Deletes the user’s account.
 
-## Contributing
+## 3. Contractors
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### List of Contractors
+- **URL:** `/contractors`
+- **Method:** `GET`
+- **Function:** Retrieves the list of contractors.
 
-## Code of Conduct
+## 4. Suppliers
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### List of Suppliers
+- **URL:** `/suppliers`
+- **Method:** `GET`
+- **Function:** Retrieves the list of suppliers.
 
-## Security Vulnerabilities
+## 5. Tenders
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Create a New Tender
+- **URL:** `/tenders/create`
+- **Method:** `GET`, `POST`
+- **Function:** Creates a new tender.
 
-## License
+### Edit Tender
+- **URL:** `/tenders/{tender}/edit`
+- **Method:** `GET`, `PUT`
+- **Function:** Updates tender information.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# tender_test_dev_laravel
+### Delete Tender
+- **URL:** `/tenders/{tender}`
+- **Method:** `DELETE`
+- **Function:** Deletes a tender.
+
+Why Laravel is suitable for this tender management project:
+
+1.	Built-in Authentication & Authorization
+Laravel provides robust authentication out of the box
+Role-based access control is easier to implement using Laravel's Gate and Policy features
+Perfect for your contractor/supplier role requirements
+
+2.	Eloquent ORM
+Makes database operations more intuitive and secure
+Relationships between tenders and users can be easily defined
+Built-in query builder for complex tender filtering
+
+3.	Modern Architecture
+MVC pattern implementation is more robust than CodeIgniter
+Service container for better dependency injection
+Event/listener system for handling tender notifications
+4.	API Development 
+Built-in API authentication using Laravel Sanctum/Passport
+API resource classes for consistent response formatting
+API rate limiting and throttling built-in
+
+
+
+
+## Comparison: CodeIgniter vs Laravel
+
+| Feature               | CodeIgniter                          | Laravel                                      |
+|-----------------------|--------------------------------------|----------------------------------------------|
+| **Complexity**        | Simple, easy to learn                | More complex, with many built-in features    |
+| **Performance**       | Fast, lightweight, few dependencies  | Slightly heavier but ideal for larger apps   |
+| **Routing**           | Basic                                | Advanced, supports RESTful and middleware    |
+| **ORM**               | Basic Active Record                  | Powerful Eloquent ORM                        |
+| **Built-In Features** | Requires additional setup for extras | Includes authentication, authorization, caching |
+| **Testing**           | Limited testing support              | Comprehensive testing tools                  |
+| **Community**         | Smaller, fewer resources available   | Large, active community, extensive resources |
+
+## Areas of Potential Improvement
+
+### 1. Performance Optimization
+- Implement caching system for frequently accessed tender data
+- Optimize database queries for large datasets
+- Add pagination for tender listings
+- Implement lazy loading for related data
+- Consider using Redis for caching and session management
+
+### 2. Security Enhancements
+- Implement two-factor authentication for sensitive operations
+- Add rate limiting for API endpoints
+- Enhance password policies
+- Implement IP-based access restrictions
+- Add audit logging for critical actions
+
+### 3. User Experience
+- Add real-time notifications using WebSockets
+- Implement email notifications for tender updates
+- Enhance search functionality with filters
+- Add export functionality for tender data (PDF, Excel)
+- Implement document preview system
+
+### 4. Code Quality
+- Increase unit test coverage
+- Implement integration tests
+- Add API documentation using OpenAPI/Swagger
+- Enhance error handling and logging
+- Implement continuous integration/deployment (CI/CD)
+
+### 5. Feature Additions
+- Advanced reporting and analytics dashboard
+- Tender document version control
+- Bulk operations for tender management
+- Integration with external payment systems
+- Mobile-responsive API endpoints
+
+### 6. Scalability
+- Implement horizontal scaling capabilities
+- Add load balancing configuration
+- Optimize file storage system
+- Implement queue system for heavy processes
+- Database sharding for large datasets
+
+### 7. Monitoring and Maintenance
+- Add system health monitoring
+- Implement automated backup systems
+- Add performance monitoring tools
+- Create maintenance mode functionality
+- Implement error tracking system
+
+### 8. Documentation
+- Enhance API documentation
+- Add code documentation
+- Create user guides
+- Document deployment processes
+- Add system architecture diagrams
+
+### 9. Integration Capabilities
+- Add support for third-party integrations
+- Implement webhook system
+- Create public API for external systems
+- Add SSO capabilities
+- Enable integration with common procurement systems
